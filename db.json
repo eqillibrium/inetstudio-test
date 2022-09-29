@@ -1,0 +1,34 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "name": "John Doe",
+            "text": "Avesome comment about Node JS",
+            "address": "Some address in USA",
+            "imgUrl": "https://cdn.vuetifyjs.com/images/lists/1.jpg",
+            "cityID": 2
+        },
+        {
+            "id": 2,
+            "name": "Mark",
+            "text": "Some interesting post about nature",
+            "address": "Some address in Russia",
+            "imgUrl": "https://cdn.vuetifyjs.com/images/lists/2.jpg",
+            "cityID": 1
+        }
+    ],
+    "filters": [
+        {
+            "label": "All",
+            "value": 0
+        },
+        {
+            "label": "Russia",
+            "value": 1
+        },
+        {
+            "label": "USA",
+            "value": 2
+        }
+    ]
+}
