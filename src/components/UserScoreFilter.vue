@@ -4,7 +4,7 @@
 
     export interface Option {
         label: string
-        value: number
+        value: string
     }
 
     export interface Data {
@@ -14,10 +14,10 @@
 
     const store = useStore()
     const props = defineProps<Data>()
-    const select = ref(0)
+    const select = ref('')
 
     onUpdated(() => {
-        store.dispatch('userModule/filterByCity', select.value)
+        store.dispatch('userModule/filterByScore', select.value)
     })
 </script>
 

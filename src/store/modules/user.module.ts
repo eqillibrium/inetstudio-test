@@ -3,12 +3,15 @@ import { ActionContext } from 'vuex'
 interface IUser {
     name: string,
     text: string,
-    cityID: number
+    cityID: number,
+    score: number
 }
 
 interface IUserState {
     users: IUser[],
-    cityFilter: number
+    filteredUsers: IUser[],
+    cityFilter: number,
+    scoreFilter: string
 }
 
 export default {
@@ -16,15 +19,15 @@ export default {
     root: true,
     state: {
         users: [],
-        cityFilter: 0,
+        filteredUsers: [],
     },
 
     mutations: {
         setUsersState (state: IUserState, payload: IUser[]): void {
             state.users = payload
         },
-        setCityFilterState(state: IUserState, payload: number): void {
-            state.cityFilter = payload
+        setFilteredUsers(state: IUserState, payload: any): void {
+            state.filteredUsers = payload
         }
     },
 
@@ -37,15 +40,41 @@ export default {
             } catch (e) {
                 console.log(e)
             }
-        } 
+        },
+        filterByCity({ state, commit, getters }: ActionContext<IUserState, any>, payload: number): void {
+            if(payload === 0) {
+                const users = getters['users']
+                commit('setFilteredUsers', users)
+                return
+            }
+            const users = state.users.filter(u => u.cityID === payload)
+            commit('setFilteredUsers', users)
+        },
+        filterByScore({ state, commit, getters }: ActionContext<IUserState, any>, payload: string): void {
+            if(!payload) {
+                const users = getters['users']
+                commit('setFilteredUsers', users)
+                return
+            }
+            const operator = payload.split(' ').shift()
+            const score = Number(payload.split(' ').pop())
+            if(operator === '>') {
+                const users = state.users.filter(u => u.score > score)
+                commit('setFilteredUsers', users)
+                console.log(users)
+            } else {
+                const users = state.users.filter(u => u.score < score)
+                commit('setFilteredUsers', users)
+            }
+        }
     },
 
     getters: {
         users (state: IUserState) {
-            if(state.cityFilter === 0) {
-                return state.users
-            }
-            return state.users.filter(el => el.cityID === state.cityFilter)
+            return state.users
+        },
+        filteredUsers(state: IUserState) {
+            return state.filteredUsers
         }
     }
 }

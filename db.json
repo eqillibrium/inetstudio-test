@@ -4,31 +4,49 @@
             "id": 1,
             "name": "John Doe",
             "text": "Avesome comment about Node JS",
-            "address": "Some address in USA",
+            "address": "Some address in Sochi",
             "imgUrl": "https://cdn.vuetifyjs.com/images/lists/1.jpg",
-            "cityID": 2
+            "cityID": 2,
+            "score": 35
         },
         {
             "id": 2,
             "name": "Mark",
             "text": "Some interesting post about nature",
-            "address": "Some address in Russia",
+            "address": "Some address in Moscow",
             "imgUrl": "https://cdn.vuetifyjs.com/images/lists/2.jpg",
-            "cityID": 1
+            "cityID": 1,
+            "score": 7
         }
     ],
-    "filters": [
-        {
-            "label": "All",
-            "value": 0
-        },
-        {
-            "label": "Russia",
-            "value": 1
-        },
-        {
-            "label": "USA",
-            "value": 2
-        }
-    ]
+    "filters": {
+        "city": [
+            {
+                "label": "All",
+                "value": 0
+            },
+            {
+                "label": "Moscow",
+                "value": 1
+            },
+            {
+                "label": "Sochi",
+                "value": 2
+            }
+        ],
+        "score": [
+            {
+                "label": "All",
+                "value": ""
+            },
+            {
+                "label": "< 10",
+                "value": "< 10"
+            },
+            {
+                "label": "> 20",
+                "value": "> 20"
+            }
+        ]
+    }
 }
