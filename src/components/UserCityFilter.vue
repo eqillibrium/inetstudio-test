@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import { ref, onUpdated } from 'vue';
+    import { ref, onUpdated, Ref } from 'vue';
     import { useStore } from 'vuex';
 
     export interface Option {
@@ -14,10 +14,11 @@
 
     const store = useStore()
     const props = defineProps<Data>()
-    const select = ref(0)
+    const select: Ref<string | number | undefined>  = ref()
 
-    onUpdated(() => {
-        store.dispatch('userModule/filterByCity', select.value)
+    onUpdated((): void => {
+        store.commit('filterModule/setCityFilterState', select.value)
+        store.dispatch('filterModule/filter')
     })
 </script>
 
@@ -26,6 +27,7 @@
     <el-select
         v-model="select"
         class="select"
+        :placeholder="props.filterName"
     >
         <el-option
             v-for="prop in props.options"

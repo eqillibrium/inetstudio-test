@@ -1,17 +1,15 @@
 import { ActionContext } from 'vuex'
 
-interface IUser {
+export interface IUser {
     name: string,
     text: string,
     cityID: number,
     score: number
 }
 
-interface IUserState {
+export interface IUserState {
     users: IUser[],
-    filteredUsers: IUser[],
-    cityFilter: number,
-    scoreFilter: string
+    filteredUsers: IUser[]
 }
 
 export default {
@@ -41,39 +39,16 @@ export default {
                 console.log(e)
             }
         },
-        filterByCity({ state, commit, getters }: ActionContext<IUserState, any>, payload: number): void {
-            if(payload === 0) {
-                const users = getters['users']
-                commit('setFilteredUsers', users)
-                return
-            }
-            const users = state.users.filter(u => u.cityID === payload)
-            commit('setFilteredUsers', users)
+        filter({ commit }: ActionContext<IUserState, any>, payload: IUser[]): void {
+            commit('setFilteredUsers', payload)
         },
-        filterByScore({ state, commit, getters }: ActionContext<IUserState, any>, payload: string): void {
-            if(!payload) {
-                const users = getters['users']
-                commit('setFilteredUsers', users)
-                return
-            }
-            const operator = payload.split(' ').shift()
-            const score = Number(payload.split(' ').pop())
-            if(operator === '>') {
-                const users = state.users.filter(u => u.score > score)
-                commit('setFilteredUsers', users)
-                console.log(users)
-            } else {
-                const users = state.users.filter(u => u.score < score)
-                commit('setFilteredUsers', users)
-            }
-        }
     },
 
     getters: {
-        users (state: IUserState) {
+        users (state: IUserState): IUser[] {
             return state.users
         },
-        filteredUsers(state: IUserState) {
+        filteredUsers(state: IUserState): IUser[] {
             return state.filteredUsers
         }
     }

@@ -20,7 +20,6 @@
             console.log(e)
         }
     })
-  
   </script>
 
 <template>

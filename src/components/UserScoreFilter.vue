@@ -14,10 +14,11 @@
 
     const store = useStore()
     const props = defineProps<Data>()
-    const select = ref('')
+    const select = ref()
 
     onUpdated(() => {
-        store.dispatch('userModule/filterByScore', select.value)
+        store.commit('filterModule/setScoreFilterState', select.value)
+        store.dispatch('filterModule/filter')
     })
 </script>
 
@@ -26,6 +27,7 @@
     <el-select
         v-model="select"
         class="select"
+        :placeholder="props.filterName"
     >
         <el-option
             v-for="prop in props.options"
